@@ -8,23 +8,30 @@ Essentially, the issue I had to solve was that I had to generate a lot of parame
 
 To solve the issue, I mainly generate Virtual Raster Tables (VRTs) through Python notebooks. VRTs allow you to apply a Python pixel function, which determines the value of the pixel based on the pixel function. VRTs are essentially an XML text file, so the large majority of my processing is just glorified text generation. I simply use templates to input the required parameters.
 
-# Contents:
+# Main Contents:
 - [Data Selection](00_data_select.ipynb)
+  - [Bounding Box](bbox_sm.gpkg)
 - [Searches](00_searches.md)
   - [Search Results - Daytime](00_search_d.csv) (Note: the number of returns has changed using the same criteria; 11 -> 8 [24/11/2025])
   - [Search Results - Nighttime](00_search_n.csv)
 - [Processing and LST Derivation](01_processing.ipynb)
 - [Compositing and Mosaicking](02_composite.ipynb)
 - [UHI Derivation](03_uhi.ipynb)
+  - [Urban Shapefile](urban.gpkg)
 - [LCZ Analysis](04_lcz.ipynb)
 - [Validation](05_validation.ipynb)
 - [Outputs](out/)
 
+# Additional:
+- [libRadtran Templates](libradtran/templates)
+- [Pixel Functions](pixel_functions)
+- [VRT Templates](templates)
+
 # Not Included:
 - Original Landsat 8 data (for obvious size reasons)
 
-# Usage
-If you want to test, I used the following folder structure. It might work otherwise, seeing I search the folders recursively. Otherwise, the code might need tweaking.
+# Usage:
+If you want to test, I used the following folder structure. It might work otherwise, seeing as the code searches folders recursively for Landsat data. Otherwise, the code might need tweaking.
 
 - data
   - LANDSAT
