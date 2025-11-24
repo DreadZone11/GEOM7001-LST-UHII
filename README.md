@@ -7,3 +7,22 @@ I'm not a coder first and foremost, so please don't judge my code too harshly. I
 Essentially, the issue I had to solve was that I had to generate a lot of parameters to derive LST from Landsat 8/9 Level-1 Digital Numbers (i.e Emissivity, TOA Radiance, TOA Brightness, Surface Reflectance, NDVI, NDWI, NDBI, etc.). I had to do this in a way that was not going to blow up my storage. Obviously, I could've streamed the data, but I was a little worred about losing access to my data source at the time, due to funding cuts.
 
 To solve the issue, I mainly generate Virtual Raster Tables (VRTs) through Python notebooks. VRTs allow you to apply a Python pixel function, which determines the value of the pixel based on the pixel function. VRTs are essentially an XML text file, so the large majority of my processing is just glorified text generation. I simply use templates to input the required parameters.
+
+# Contents:
+- [Data Selection](00_data_select.ipynb)
+- [Searches](00_searches.md)
+  - [Search Results - Daytime](00_search_d.csv) (Note: the number of returns has changed using the same criteria; 11 -> 8 [24/11/2025])
+  - [Search Results - Nighttime](00_search_n.csv)
+- [Processing and LST Derivation](01_processing.ipynb)
+- [Compositing and Mosaicking](02_composite.ipynb)
+- [UHI Derivation](03_uhi.ipynb)
+- [LCZ Analysis](04_lcz.ipynb)
+- [Validation](05_validation.ipynb)
+- [Outputs](out/)
+
+# Not Included:
+- Original Landsat 8 data (for obvious size reasons)
+
+Note: If you want to test. Create the following folder structure and place Level-1 files inside. Otherwise, tweak the code.
+- data
+  - LANDSAT
