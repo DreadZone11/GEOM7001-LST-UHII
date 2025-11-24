@@ -21,6 +21,7 @@ To solve the issue, I mainly generate Virtual Raster Tables (VRTs) through Pytho
 - [LCZ Analysis](04_lcz.ipynb)
 - [Validation](05_validation.ipynb)
 - [Outputs](out/)
+- [Report](report.pdf)
 
 # Additional:
 - [libRadtran Templates](libradtran/templates)
