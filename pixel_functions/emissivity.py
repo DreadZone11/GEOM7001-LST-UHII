@@ -1,0 +1,51 @@
+import numpy as np
+def emissivity(in_ar, out_ar, xoff, yoff, xsize, ysize, raster_xsize, raster_ysize, buf_radius, gt, **kwargs):
+    # Define parameters (Parlow and Wicki 2017)
+    ndvi_v_threshold = 0.5
+    ndvi_s_threshold = 0.2
+    ndwi_threshold   = 0.0
+    ndbi_threshold   = -0.2
+    ndvi_b_threshold = 0.35
+
+    eps_v = 0.99
+    eps_s = 0.97
+    eps_w = 0.98
+    eps_b = 0.9612
+    F_prime = 0.55
+
+    # Read inputs
+    v = in_ar[0]  # NDVI
+    w = in_ar[1]  # NDWI
+    b = in_ar[2]  # NDBI
+
+    # Initialise output
+    eps = np.full(v.shape, np.nan, dtype='float32')
+
+    # Constrcut masks (Parlow and Wicki 2017) ----
+    msk_water = (w >= ndwi_threshold)
+    msk_veg   = (v >= ndvi_v_threshold)
+    msk_soil  = (v <= ndvi_s_threshold)
+    msk_built = (b > ndbi_threshold) & (v <= ndvi_b_threshold)
+
+    # Apply precedence: water → veg → built → soil → mixed ----
+    eps[msk_water] = eps_w
+    eps[msk_veg   & ~msk_water] = eps_v
+    eps[msk_built & ~msk_water & ~msk_veg] = eps_b
+    eps[msk_soil  & ~msk_water & ~msk_veg & ~msk_built] = eps_s
+
+    # Mixed / remaining pixels ----
+    unfilled  = ~np.isfinite(eps)
+    mix_range = (v > ndvi_s_threshold) & (v < ndvi_v_threshold)
+    msk_mix   = unfilled & mix_range
+
+    # Apply and define equation (Parlow and Wicki 2017)
+    if np.any(msk_mix):
+        denom = ndvi_v_threshold - ndvi_s_threshold
+        if denom == 0:
+            denom = 1e-6 # Don't wanna divide by zero
+        Pv = ((v - ndvi_s_threshold) / denom) ** 2
+        Pv = np.clip(Pv, 0.0, 1.0)
+        C = (1.0 - eps_s) * eps_v * F_prime * (1.0 - Pv)
+        eps[msk_mix] = (eps_v * Pv[msk_mix]) + (eps_s * (1.0 - Pv[msk_mix])) + C[msk_mix]
+
+    out_ar[:] = eps

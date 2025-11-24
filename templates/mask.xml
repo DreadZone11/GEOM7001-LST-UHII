@@ -1,0 +1,10 @@
+  <MaskBand>
+    <VRTRasterBand dataType="Byte">
+      <ColorInterp>Alpha</ColorInterp>
+      <NoDataValue>0</NoDataValue>
+      <SimpleSource>
+        <SourceFilename relativeToVRT="{{relative_to_vrt}}">{{mask_src}}</SourceFilename>
+        <SourceBand>1</SourceBand>
+      </SimpleSource>
+    </VRTRasterBand>
+  </MaskBand>

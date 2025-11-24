@@ -1,0 +1,13 @@
+  <VRTRasterBand dataType="{{out_dtype}}" band="{{band_index}}">
+    <NoDataValue>{{nodata_out}}</NoDataValue>
+    <ComplexSource>
+      <SourceFilename relativeToVRT="{{relative_to_vrt}}">{{src_filename}}</SourceFilename>
+      <SourceBand>{{source_band}}</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="{{width}}" ySize="{{height}}"/>
+      <DstRect xOff="0" yOff="0" xSize="{{width}}" ySize="{{height}}"/>
+      <SrcNoDataReal>{{nodata_in}}</SrcNoDataReal>
+      <DstNoDataReal>{{nodata_out}}</DstNoDataReal>
+      <ScaleRatio>{{scale_ratio}}</ScaleRatio>
+      <ScaleOffset>{{scale_offset}}</ScaleOffset>
+    </ComplexSource>
+  </VRTRasterBand>

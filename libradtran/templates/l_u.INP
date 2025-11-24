@@ -1,0 +1,20 @@
+# UVSPEC Data File
+# What we want is the upwelling radiance component returning to sensor
+
+source {SOURCE} # Sets that we want thermal not solar
+mol_abs_param LOWTRAN
+
+atmosphere_file {ATM_PROF} # Sets that
+
+umu {UMU} # Cosine of the viewing zenith direction
+phi {AZIMUTH}
+
+sur_temperature 0
+albedo 0
+
+wavelength {NM_MIN} {NM_MAX}
+
+zout {Z} # Calculates at the z height 
+
+output_process per_nm
+output_user lambda uavgup

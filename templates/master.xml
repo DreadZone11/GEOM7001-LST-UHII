@@ -1,0 +1,6 @@
+<VRTDataset rasterXSize="{{width}}" rasterYSize="{{height}}">
+  <SRS>{{crs_wkt}}</SRS>
+  <GeoTransform>{{geo_transform}}</GeoTransform>
+{{mask_xml}}
+{{bands_xml}}
+</VRTDataset>

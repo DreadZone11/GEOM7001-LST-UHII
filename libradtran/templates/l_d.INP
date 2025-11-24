@@ -1,0 +1,16 @@
+# UVSPEC Data File
+# What we want is the downwelling radiance component the surface receives
+
+source {SOURCE} # Sets that we want thermal not solar
+mol_abs_param LOWTRAN
+
+atmosphere_file {ATM_PROF} # Sets the atmospheric profile
+
+umu {UMU} # Cosine of the viewing zenith direction
+phi {AZIMUTH}
+
+wavelength {NM_MIN} {NM_MAX}
+
+zout {Z} # Calculates at the z height
+
+output_user lambda uavgdn

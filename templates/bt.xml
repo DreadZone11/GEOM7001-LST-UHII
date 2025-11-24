@@ -1,0 +1,31 @@
+<VRTDataset rasterXSize="{{width}}" rasterYSize="{{height}}">
+  <SRS>{{crs_wkt}}</SRS>
+  <GeoTransform>{{geo_transform}}</GeoTransform>
+  <VRTRasterBand dataType="{{out_dtype}}" band="{{out_band}}" subClass="VRTDerivedRasterBand">
+    <NoDataValue>{{nodata_out}}</NoDataValue>
+    <UnitType>kelvin</UnitType>
+    <Description>Brightness Temperature (K)</Description>
+    <PixelFunctionType>bt_from_dn</PixelFunctionType>
+    <PixelFunctionLanguage>Python</PixelFunctionLanguage>
+    <PixelFunctionCode><![CDATA[
+import numpy as np
+def bt_from_dn(in_ar, out_ar, xoff, yoff, xsize, ysize, *args, **kwargs):
+    DN = in_ar[0].astype(np.float32)
+    bad = (~np.isfinite(DN)) | (DN <= 0)
+    good = ~bad
+    L = ({{M_lambda}}) * DN + ({{A_lambda}})
+    T = np.empty_like(DN, dtype=np.float32)
+    T[good] = ({{K2}}) / np.log(({{K1}}) / L[good] + 1.0)
+    T[~good] = np.nan
+    out_ar[:] = T
+    ]]></PixelFunctionCode>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">{{src_filename}}</SourceFilename>
+      <SourceBand>{{in_band}}</SourceBand>
+      <SourceProperties RasterXSize="{{width}}" RasterYSize="{{height}}" DataType="{{in_dtype}}"/>
+      <SrcRect xOff="0" yOff="0" xSize="{{width}}" ySize="{{height}}"/>
+      <DstRect xOff="0" yOff="0" xSize="{{width}}" ySize="{{height}}"/>
+      <NODATA>{{nodata_in}}</NODATA>
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>
