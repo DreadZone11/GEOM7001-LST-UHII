@@ -24,7 +24,7 @@ To solve the issue, I mainly generate Virtual Raster Tables (VRTs) through Pytho
 - Original Landsat 8 data (for obvious size reasons)
 
 # Usage
-If you want to test, I used the following folder structure and place Level-1 files inside. It might work otherwise, seeing I search the folders recursively. Otherwise, the code might need tweaking.
+If you want to test, I used the following folder structure. It might work otherwise, seeing I search the folders recursively. Otherwise, the code might need tweaking.
 
 - data
   - LANDSAT
@@ -33,3 +33,4 @@ If you want to test, I used the following folder structure and place Level-1 fil
       - LC08_LT1P_{PATH}{ROW}_{DATE}_B11.tif
       - LC08_LT1P_{PATH}{ROW}_{DATE}_MTL.txt
       - LC08_LT1P_{PATH}{ROW}_{DATE}_QA_PIXEL.tif
+      - ...
