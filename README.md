@@ -2,8 +2,8 @@
 University assignment: Python processing workflow to derive LST and UHII from Landsat 8 Level-1 scenes using radiative transfer and amtospheric modelling. Includes daytime and nighttime scenes. 
 
 # Intro
-I'm not a coder first and foremost, so please don't judge my code too harshly. It got a little messy at the end with the time crunch.  
+I'm not a coder first and foremost, so please don't judge my code too harshly. It got a little messy with the time crunch at the end. As such, a lot of the later code remains uncommented.
 
-Essentially, the issue I had to solve was having lots of processing, without bloating up the storage space. I could've streamed the data in hindsight but I was a little worried at the time about lack of funding to my data source and thereby losing access.  
+Essentially, the issue I had to solve was that I had to generate a lot of parameters to derive LST from Landsat 8/9 Level-1 Digital Numbers (i.e Emissivity, TOA Radiance, TOA Brightness, Surface Reflectance, NDVI, NDWI, NDBI, etc.). I had to do this in a way that was not going to blow up my storage. Obviously, I could've streamed the data, but I was a little worred about losing access to my data source at the time, due to funding cuts.
 
-To solve the issue, I mainly generate VRTs through python, which are essentially just an XML format. So the large majority of my preprocessing is just glorified text generation. I just use input the required parameters into templates.
+To solve the issue, I mainly generate Virtual Raster Tables (VRTs) through Python notebooks. VRTs allow you to apply a Python pixel function, which determines the value of the pixel based on the pixel function. VRTs are essentially an XML text file, so the large majority of my processing is just glorified text generation. I simply use templates to input the required parameters.
